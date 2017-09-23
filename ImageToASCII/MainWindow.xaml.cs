@@ -36,16 +36,21 @@ namespace pngtoascii
             return tb_symbols.Text.ToCharArray();
         }
 
+        private Bitmap resizebmp(Bitmap orig, int newwidth)
+        {
+            int newheidht = Convert.ToInt32(Math.Round(Convert.ToDouble(newwidth) / orig.Width * orig.Height));
+            return ImageProcessing.ResizeBitmap(orig, newwidth, newheidht);
+        }
+
         private void bt_bmptoascii_Click(object sender, RoutedEventArgs e)
         {
-            Bitmap bmpused = bmporig;
-            if (rb_BOLKNOT.IsChecked ?? false)
-            {
-                int newwidth = 100;
-                int newheidht = Convert.ToInt32(Math.Round(Convert.ToDouble(newwidth) / bmporig.Width * bmporig.Height));
-                bmpused = ImageProcessing.ResizeBitmap(bmporig, newwidth, newheidht);
-            }
+            Bitmap bmpused;
             char[] chars = getcharsfromtb();
+
+            if (rb_BOLKNOT.IsChecked ?? false) bmpused = resizebmp(bmporig, 100);
+            else if (rb_manual.IsChecked ?? false) bmpused = resizebmp(bmporig, Convert.ToInt32(tb_resultwidth.Text));
+            else bmpused = bmporig;
+
             data = ImageProcessing.GetBytesFromBitmap(bmpused);
             try
             {
@@ -85,6 +90,16 @@ namespace pngtoascii
             psi.Arguments = @"/n, /select, " + file;
             PrFolder.StartInfo = psi;
             PrFolder.Start();
+        }
+
+        private void rb_manual_Checked(object sender, RoutedEventArgs e)
+        {
+            tb_resultwidth.IsEnabled = true;
+        }
+
+        private void rb_manual_Unchecked(object sender, RoutedEventArgs e)
+        {
+            tb_resultwidth.IsEnabled = false;
         }
     }
 }
