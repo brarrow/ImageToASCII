@@ -11,16 +11,17 @@
             <ColumnDefinition Width="262*"/>
             <ColumnDefinition Width="395*"/>
         </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="204" Margin="59.6,27,0,0" VerticalAlignment="Top" Width="326"/>
         <Button x:Name="bt_loadfile" Content="Выбрать изображение" HorizontalAlignment="Left" Height="22" Margin="180,27,0,0" VerticalAlignment="Top" Width="137" Click="bt_loadfile_Click" Grid.ColumnSpan="2"/>
         <TextBox x:Name="tb_openedimage" HorizontalAlignment="Left" Height="22" Margin="10,27,0,0" Text="Выберите изображение..." VerticalAlignment="Top" Width="165" MaxLines="1"/>
         <Image x:Name="bmp_image" HorizontalAlignment="Left" Height="227" Margin="10,54,0,0" VerticalAlignment="Top" Width="307" StretchDirection="DownOnly" Grid.ColumnSpan="2"/>
-        <Button x:Name="bt_bmptoascii" Content="Преобразовать в ASCII" HorizontalAlignment="Left" Height="22" Margin="70.6,215,0,0" VerticalAlignment="Top" Width="193" Click="bt_bmptoascii_Click" Grid.Column="1"/>
-        <TextBox x:Name="tb_symbols" HorizontalAlignment="Left" Height="25" Margin="103.655,55,0,0" TextWrapping="Wrap" Text="#@%=+*:-. " VerticalAlignment="Top" Width="142" Grid.Column="1"/>
+        <Button x:Name="bt_bmptoascii" Content="Преобразовать в ASCII" HorizontalAlignment="Left" Height="22" Margin="76.6,167,0,0" VerticalAlignment="Top" Width="193" Click="bt_bmptoascii_Click" Grid.Column="1"/>
+        <TextBox x:Name="tb_symbols" HorizontalAlignment="Left" Height="25" Margin="103.655,55,0,0" TextWrapping="Wrap" Text="■☻●☼+*:-· " VerticalAlignment="Top" Width="142" Grid.Column="1"/>
         <Label Content="ASCII символы (от тёмного к белому):" HorizontalAlignment="Left" Height="29" Margin="70.655,27,0,0" VerticalAlignment="Top" Width="217" TabIndex="2147483644" Grid.Column="1"/>
         <RadioButton x:Name="rb_asis" GroupName="Languages" Content="Попиксельно" IsChecked="True" Margin="70.6,92,224.6,205.8" Width="100" Height="23" Grid.Column="1" />
         <RadioButton x:Name="rb_BOLKNOT" GroupName="Languages" Content="ХОЧУ В БЛОКНОТЕ ПОКОЖИТЕ МНЕ В БОЛКНОТЕ" Margin="70.6,120,20.6,177.8" Height="23" Grid.Column="1" />
-        <Button Content="Открыть директорию с файлом" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="70.6,242,0,0" VerticalAlignment="Top" Width="193" Click="Button_Click"/>
+        <Button x:Name="bt_opendirectory" Content="Открыть директорию с файлом" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="76.6,194,0,0" VerticalAlignment="Top" Width="193" Click="bt_opendirectory_Click"/>
         <RadioButton x:Name="rb_manual" GroupName="Languages" Content="Своё значение (кол-во символов в строке):" Margin="70.6,148,20.6,149.8" Height="23" Grid.Column="1" Checked="rb_manual_Checked" Unchecked="rb_manual_Unchecked" />
-        <TextBox x:Name="tb_resultwidth" HorizontalAlignment="Left" Height="18" Margin="335.6,148,0,0" TextWrapping="Wrap" Text="200" VerticalAlignment="Top" Width="39" Grid.Column="1" RenderTransformOrigin="0.684,0.373" IsEnabled="False"/>
+        <TextBox x:Name="tb_resultwidth" HorizontalAlignment="Left" Height="18" Margin="335.6,148,0,0" TextWrapping="Wrap" Text="400" VerticalAlignment="Top" Width="39" Grid.Column="1" RenderTransformOrigin="0.684,0.373" IsEnabled="False"/>
     </Grid>
 </Window>

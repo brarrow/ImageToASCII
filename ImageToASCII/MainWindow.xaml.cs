@@ -12,9 +12,9 @@ namespace pngtoascii
     /// </summary>
     public partial class MainWindow : Window
     {
-        string filename;
-        Bitmap bmporig;
-        byte[] data;
+        string filename; // filepath to image
+        Bitmap bmporig; // image original
+        byte[] data; // bytes of current image
 
         public MainWindow()
         {
@@ -27,7 +27,6 @@ namespace pngtoascii
             if (openFileDialog.ShowDialog() == true)
                 tb_openedimage.Text = filename = openFileDialog.FileName;
             bmporig = ImageProcessing.ConvertPixelFormat(new Bitmap(filename));
-            //bmpimage.p
             bmp_image.Source = ImageProcessing.ImageSourceForBitmap(bmporig);
         }
 
@@ -44,42 +43,44 @@ namespace pngtoascii
 
         private void bt_bmptoascii_Click(object sender, RoutedEventArgs e)
         {
-            Bitmap bmpused;
-            char[] chars = getcharsfromtb();
+            Bitmap bmpused; // array that use for generate ascii
+            char[] chars = getcharsfromtb(); // ascii symbols that we use
 
             if (rb_BOLKNOT.IsChecked ?? false) bmpused = resizebmp(bmporig, 100);
             else if (rb_manual.IsChecked ?? false) bmpused = resizebmp(bmporig, Convert.ToInt32(tb_resultwidth.Text));
-            else bmpused = bmporig;
+            else bmpused = bmporig; // pix to pix using original image
 
-            data = ImageProcessing.GetBytesFromBitmap(bmpused);
+            data = ImageProcessing.GetBytesFromBitmap(bmpused); 
             try
             {
-                using (StreamWriter sw = new StreamWriter(filename.Remove(filename.LastIndexOf('\\')) + @"\Result.txt"))
+                using (StreamWriter sw = new StreamWriter(filename.Remove(filename.LastIndexOf('\\')) + @"\Result.txt")) // write file in one directory with image
                 {
-                    int j = 0;
-                    int buf=0;
-                    int symbol=0;
-                    int el = 255 * 3 / chars.Length;
-                    for (int i = 0; i < data.Length - 3; i +=4)
+                    int j = 0; // count of symbols in output current line
+                    int buf=0; // sum of R G B canals 
+                    int symbol=0; // symbol that we'll use
+                    int el = 255 * 3 / chars.Length; // how many units of brightness from sum we need to one symbol
+                    //How it look in array data
+                    // 0 1 2 3 4 5 6 7 8
+                    // R G B A R G B A R
+                    for (int i = 0; i < data.Length - 3; i +=4) 
                     {
-                        if (j == bmpused.Width-1)
+                        if (j == bmpused.Width-1) // if end of need line
                         {
                             sw.WriteLine();
                             j = 0;
                         }else j++;
 
                         buf = data[i] + data[i+1] + data[i + 2];
-                        symbol = buf / el - 1;
-                        if (symbol < 0) symbol = 0;
-                        sw.Write(chars[symbol]);
+                        symbol = buf / el - 1; // calculate need symbol according to sum of brightness
+                        if (symbol < 0) symbol = 0; // catch out of memory
+                        sw.Write(chars[symbol]); // write in ouptut file
                     }
-
                 }
             }
             catch { };
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void bt_opendirectory_Click(object sender, RoutedEventArgs e)
         {
             Process PrFolder = new Process();
             ProcessStartInfo psi = new ProcessStartInfo();
