@@ -43,10 +43,10 @@ namespace pngtoascii
 
         private void bt_bmptoascii_Click(object sender, RoutedEventArgs e)
         {
-            Bitmap bmpused; // array that use for generate ascii
+            Bitmap bmpused; // image that use for generate ascii
             char[] chars = getcharsfromtb(); // ascii symbols that we use
 
-            if (rb_BOLKNOT.IsChecked ?? false) bmpused = resizebmp(bmporig, 100);
+            if (rb_BOLKNOT.IsChecked ?? false) bmpused = resizebmp(bmporig, 72);
             else if (rb_manual.IsChecked ?? false) bmpused = resizebmp(bmporig, Convert.ToInt32(tb_resultwidth.Text));
             else bmpused = bmporig; // pix to pix using original image
 
